@@ -10,5 +10,5 @@ importAndConvert<-function(shapeFile)
   df
 }
 
-CommuneAssociee <-importConvertAndSave("CommuneAssociee")
+CommuneAssociee <-importAndConvert("CommuneAssociee")
 plot(CommuneAssociee[CommuneAssociee$IDSub==1,], axes=TRUE)
