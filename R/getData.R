@@ -11,4 +11,19 @@ non empty {[Measures].[Ménages],[Measures].[Individus],
                         [Individu].[Sexe].children, [Individu].[Tranche Age].children, [Individu].[CS8 Courte].children) on 1
                         from EBF')")
 colnames(EBF)<-c("Comas","Ile", "Sexe", "TrancheAge", "CS8", "Menages", "Individus","Depenses","Ressources", "DMM")
+
+
+
+RP<-sqlQuery(myconn, "select * from openquery([RP2012],'select 
+non empty {[Measures].[Menages],[Measures].[Individus],[Measures].[Résidences principales],
+[Measures].[Population moyenne du ménage]
+} on 0,
+non empty ([Geographie].[Comas].children,[Geographie].[Ile].children,
+[Individus].[Sexe].children, [Individus].[Age décennal 80].children, [Individus].[CSP].[CSP1]) on 1
+from RP2012')")
+colnames(RP)<-c("Comas","Ile", "Sexe", "TrancheAge", "CS8", "Menages", "Individus","ResidencesPrincipales","PopMoyenneMenage")
+
+
+
 write.csv2(EBF, "EBF.csv", row.names = FALSE, na = "")
+write.csv2(RP, "RP.csv", row.names = FALSE, na = "")
