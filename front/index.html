@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,12 +18,41 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
-<h1>Hello, world!</h1>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<body>
+    <h1>Hello, world!</h1>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <form>
+        <div class="form-group">
+            Commune
+            <select name="communes" class="form-control">
+                <option value="Punaauia">Punaauia</option>
+                <option value="Faaa">Faaa</option>
+                <option value="Papeete">Papeete</option>
+                <option value="audi">audi</option>
+            </select> 
+            Age
+            <select name="Age" class="form-control">
+                <option value="5">0-10 ans</option>
+                <option value="15">11-20 ans</option>
+                <option value="25">21-30 ans</option>
+                <option value="35">21-40 ans</option>
+            </select>
+            CSP
+            <select name="CSP" class="form-control">
+                <option value="Punaauia">Ouvrier</option>
+                <option value="Faaa">Enseignant</option>
+                <option value="Papeete">Cadre</option>
+                <option value="audi">Dirigeant</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary">Ok</button>
+    </form>
+
 </body>
+
 </html>
