@@ -56,15 +56,45 @@
 
     <div class="row">
         <div class="col-md-4 result-box result-marie">
+            <div class="result-illustration">
+                <img data-bind="attr: {src: statusMaritalImage}">
+            </div>
             J&#39;ai <span data-bind="text: chanceDetreMarie" class="font-bold"> </span> de chance d&#39;être marié(e)
         </div>
-        <div class="col-md-4 result-box">
-            <h2>Tu as: <span data-bind="text: enfants"> </span> enfants</h2>
 
+        <div class="col-md-4 result-box result-occupation">
+            <div class="result-illustration">
+                <img data-bind="attr: {src: statutOccupationImage}">
+            </div>
+            Je suis certainement un heureux <br>
+            <span data-bind="text: statutOccupationText" class="font-bold"> </span>
         </div>
-        <div class="col-md-4 result-box">
-            <h2>Tu as: <span data-bind="text: enfants"> </span> enfants</h2>
 
+        <div class="col-md-4 result-box result-alcool">
+            <div class="result-illustration" data-bind="html: biereBouteillesHtml">
+            </div>
+            <div data-bind="html: depenseAlcoolEnFrancs" class="font-bold"> </div> Le budget mensuel par UC pour l'alcool
+        </div>
+
+        <div class="col-md-4 result-box result-marie">
+            <div class="result-illustration">
+                <img data-bind="attr: {src: status}">
+            </div>
+            J&#39;ai <span data-bind="text: chanceDetreMarie" class="font-bold"> </span> de chance d&#39;être marié(e)
+        </div>
+
+        <div class="col-md-4 result-box result-marie">
+            <div class="result-illustration">
+                <img data-bind="attr: {src: status}">
+            </div>
+            J&#39;ai <span data-bind="text: chanceDetreMarie" class="font-bold"> </span> de chance d&#39;être marié(e)
+        </div>
+
+        <div class="col-md-4 result-box result-marie">
+            <div class="result-illustration">
+                <img data-bind="attr: {src: status}">
+            </div>
+            J&#39;ai <span data-bind="text: chanceDetreMarie" class="font-bold"> </span> de chance d&#39;être marié(e)
         </div>
     </div>
 </div>
