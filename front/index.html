@@ -48,8 +48,21 @@
             et que je suis <span id='headerProfession'> </span>
         </div>
     </div>
-
-        <div id="step1">
+    <center>
+        <div id="step0">  
+   
+           <div style="text-align: center;font-size: 40px;width: 70%;color:#49B698">
+                  <center>SI VOUS ETIEZ UN AUTRE HABITANT DE LA POLYNESIE  </center>
+           </div>
+           
+      <br/><br/>
+           <div class="col-md-12"  style="text-align: center">
+               <button class="font-bold" style="background-color: #49B698;width: auto;font-size: 50px;color:#FFFFFF" id='btnStep0'>QUI SERIEZ VOUS ?</div>
+           </div>
+      
+        </div>
+        </center>
+        <div id="step1" style="display: none">
             Commune : <span id='spanCommune'></span><br/>
            <object style="max-height: 500px" type="image/svg+xml" id="tahitiSVG" data="images/tahiti.svg">
            </object>  <br/>
@@ -120,6 +133,7 @@ var villesTahiti=[
 
     function goToStep1()
     {
+        $( "#step0" ).hide();  
         $(".criteria-ville").hide();
         $(".criteria-sexe").hide();
         $(".criteria-age").hide();
@@ -132,6 +146,7 @@ var villesTahiti=[
 
     function goToStep2()
     {
+        $( "#step0" ).hide();  
        $(".criteria-ville").show();
         $(".criteria-sexe").hide();
         $(".criteria-age").hide();
@@ -144,6 +159,7 @@ var villesTahiti=[
 
      function goToStep3()
     {
+        $( "#step0" ).hide();  
           $(".criteria-ville").show();
         $(".criteria-sexe").show();
         $(".criteria-age").hide();
@@ -156,6 +172,7 @@ var villesTahiti=[
 
        function goToStep4()
     {
+        $( "#step0" ).hide();  
          $(".criteria-ville").show();
         $(".criteria-sexe").show();
         $(".criteria-age").show();
@@ -168,6 +185,12 @@ var villesTahiti=[
 
     $(function() {
 
+        //STEP0
+        btnStep0
+  $("#btnStep0").click(function() {
+           goToStep1();
+        });
+
         //STEP1
           var a = document.getElementById("tahitiSVG");
 
@@ -179,7 +202,7 @@ var villesTahiti=[
                 var svgDoc = a.contentDocument;
 
                 for (var i = 0;i<villesTahiti.length; i++)
-                {
+                { 
                     var currentVille = villesTahiti[i];
                     var pathElm = svgDoc.getElementById(currentVille);
                     if (pathElm)
@@ -193,12 +216,12 @@ var villesTahiti=[
                         }, false);
 
                          pathElm.addEventListener("mouseover",function(e){
-                            e.currentTarget.setAttribute('fill', '#aaaaaa');
+                            e.currentTarget.setAttribute('fill', '#46B497');
                             $("#spanCommune").text(e.currentTarget.id);
                         }, false);
 
                           pathElm.addEventListener("mouseout",function(e){
-                            e.currentTarget.setAttribute('fill', '#111111');
+                            e.currentTarget.setAttribute('fill', '#C8E9E0');
                              $("#spanCommune").text('');
                         }, false);
                     }
