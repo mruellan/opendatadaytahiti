@@ -1,6 +1,7 @@
 library(RODBC)
 library(dplyr)
-library(mice)
+setwd("~/R/Projets/opendatadaytahiti/R")
+
 myconn <-odbcConnect("RP2012")
 EBF <- sqlQuery(myconn, "
 select * from openquery([SQL_CUBEEBF],'select 
@@ -75,22 +76,22 @@ EBFDepenses[EBFDepenses$CSP=="Cadres",]$CSP<-"Cadres et professions intellectuel
 EBFDepenses[EBFDepenses$CSP=="Autres inactifs",]$CSP<-"Sans emploi"
 EBFDepenses[EBFDepenses$CSP=="Retraités",]$CSP<-"Sans emploi"
 
-table(RP3$CSP)
-table(EBFDepenses$CSP)
 
 RP4<-merge(RP3, EBFDepenses, by=c("Comas", "Ile", "TrancheAge", "Sexe", "CSP"), all.x = TRUE )
-
 RP4<-RP4[RP4$Ile=="Tahiti",]
-
-
 RP4[is.na(RP4$Alcool),]$Alcool<-mean(RP4$Alcool, na.rm = TRUE)
 RP4[is.na(RP4$Tabac),]$Tabac<-mean(RP4$Tabac, na.rm = TRUE)
-
+RP4[RP4$StatutMarital=="Non concerné",]$StatutMarital<-"Non concerne"
+RP4[RP4$StatutMarital=="Célibataire",]$StatutMarital<-"Celibataire"
+RP4[RP4$StatutMarital=="Divorcée",]$StatutMarital<-"Divorce"
+RP4[RP4$StatutMarital=="Marié(e)",]$StatutMarital<-"Marie"
 
 write.csv2(RP3, "RP3.csv", row.names = FALSE, na = "")
 write.csv2(RP4, "RP4.csv", row.names = FALSE, na = "")
+
 sink("rp3.json")
 cat(jsonlite::toJSON(RP3))
 sink("rp4.json")
 cat(jsonlite::toJSON(RP4))
 sink()
+table(RP4$StatutMarital)
