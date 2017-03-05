@@ -89,6 +89,7 @@ var StatModel = function (age, sexe, ville, profession) {
 
         return 'images/statut-occupation-' + _status + '.png';
     }, this);
+    this.statutMaritalText = this.StatutMarital();
 
     this.statutOccupationText = ko.pureComputed(function () {
         var _status = '';
