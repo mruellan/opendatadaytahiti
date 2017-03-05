@@ -14,6 +14,15 @@ var StatModel = function (age, sexe, ville, profession) {
                 self.enfants(data.enfants);
             });
     };
+
+    this.sexeAvecPreposition = ko.pureComputed( function () {
+        var preposition = this.sexe() == 'femme' ? 'une' : 'un';
+        return preposition + ' ' + this.sexe();
+    }, this );
+
+    this.sexeImage = ko.pureComputed( function () {
+        return this.sexe() == 'femme' ? 'femme' : 'homme';
+    }, this );
 };
 
 function getUrlParameter(sParam) {

@@ -1,0 +1,20 @@
+.result-box {
+    color: #C63226;
+}
+
+.criteria {
+    height: 100px;
+}
+
+.criteria-ville object {
+    width: 100px;
+}
+.criteria-age .age {
+    font-size: 48px;
+    color: #49B698;
+    font-weight: bold;
+}
+.criteria-profession .profession {
+    font-size: 48px;
+    color: #49B698;
+}

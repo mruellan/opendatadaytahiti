@@ -10,6 +10,9 @@
 
     <!-- Bootstrap -->
     <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/formulaire.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/css/bootstrap-slider.min.css" rel="stylesheet">
+    
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,31 +29,124 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.min.js"></script>
+    
+
+
+    <script>
+
+var villesTahiti=[
+    'Faaone',
+    'Mataiea',
+    'Hitiaa',
+    'Afaahiti',
+    'afaahiti',
+    'Papeari',
+    'Papara',
+    'Paea',
+    'Punaauia',
+    'Faaa',
+    'Papeete',
+
+
+]
+
+    $(function() {
+
+        // With JQuery
+        $('#age').slider();
+
+        $("#age").on("slide", function(slideEvt) {
+            $("#labelAge").text('Age : ' + slideEvt.value + 'ans');
+        });
+
+        $("#btnStep1").click(function() {
+            $( "#step1" ).hide(400);
+            $( "#step2" ).show(400);
+        });
+
+         $("#btnStep2").click(function() {
+            $( "#step2" ).hide(400);
+            $( "#step3" ).show(400);
+        });
+
+           $("#btnStep3").click(function() {
+            $( "#step3" ).hide(400);
+            $( "#step4" ).show(400);
+        });
+
+        
+           $("#btnStep4").click(function() {
+               window.location.href = "dashboard.html"
+        });
+
+
+        var a = document.getElementById("tahitiSVG");
+
+            // It's important to add an load event listener to the object,
+            // as it will load the svg doc asynchronously
+            a.addEventListener("load",function(){
+
+                // get the inner DOM of alpha.svg
+                var svgDoc = a.contentDocument;
+
+                for (var i = 0;i<villesTahiti.length; i++)
+                {
+                    var ville = villesTahiti[i];
+                    var pathElm = svgDoc.getElementById(ville);
+                    if (pathElm)
+                    {
+                    // add behaviour
+                        pathElm.addEventListener("click",function(e){
+                            alert(e.currentTarget.id);
+                        }, false);
+
+                         pathElm.addEventListener("mouseover",function(e){
+                            e.currentTarget.setAttribute('fill', '#aaaaaa');
+                            $("#spanCommune").text(e.currentTarget.id);
+                        }, false);
+
+                          pathElm.addEventListener("mouseout",function(e){
+                            e.currentTarget.setAttribute('fill', '#111111');
+                             $("#spanCommune").text('');
+                        }, false);
+                    }
+
+                }
+
+                // get the inner element by id
+               
+            }, false);
+    });
+    </script>
     <form>
-        <div class="form-group">
-            Commune
-            <select name="communes" class="form-control">
-                <option value="Punaauia">Punaauia</option>
-                <option value="Faaa">Faaa</option>
-                <option value="Papeete">Papeete</option>
-                <option value="audi">audi</option>
-            </select> 
-            Age
-            <select name="Age" class="form-control">
-                <option value="5">0-10 ans</option>
-                <option value="15">11-20 ans</option>
-                <option value="25">21-30 ans</option>
-                <option value="35">21-40 ans</option>
-            </select>
-            CSP
-            <select name="CSP" class="form-control">
+        <div id="step1">
+            Commune : <span id='spanCommune'></span><br/>
+           <object type="image/svg+xml" id="tahitiSVG" data="images/tahiti.svg">
+           </object>  
+            <button type="button" id='btnStep1' class="btn btn-primary">Suivant</button>
+        </div>
+         <div id="step2" style="display: none">
+             Sexe
+             <button type="button" id='btnStep2' class="btn btn-primary">Suivant</button>
+        </div>
+         <div id="step3" style="display: none">
+             <span id="labelAge">Age : 25 ans</span><br/>
+             <input id="age" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="99" 
+                data-slider-step="1" data-slider-value="25" data-slider-tooltip="hide" />
+             <button type="button" id='btnStep3' class="btn btn-primary">Suivant</button>
+        </div>
+          <div id="step4" style="display: none">
+              CSP
+                <select name="CSP" class="form-control">
                 <option value="Punaauia">Ouvrier</option>
                 <option value="Faaa">Enseignant</option>
                 <option value="Papeete">Cadre</option>
                 <option value="audi">Dirigeant</option>
             </select>
+             <button type="button" id='btnStep4' class="btn btn-primary">OK</button>
         </div>
-        <button type="button" class="btn btn-primary">Ok</button>
+        
     </form>
 </body>
 
