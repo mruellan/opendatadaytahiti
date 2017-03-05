@@ -16,20 +16,24 @@ var StatModel = function (age, sexe, ville, profession) {
 
     self.loadJson = function () {
 
-        $.getJSON("result.json?age=" + self.age + "&sexe=" + self.sexe + "&ville=" + self.ville + "&profession=" + self.profession,
-            function (data) {
-                self.StatutMarital(data.StatutMarital);
-                self.StatutMaritalFreq(data.StatutMaritalFreq);
-                self.StatutOccupation(data.StatutOccupation);
-                console.log(self.StatutMarital());
-            });
-
-        // $.getJSON("http://opendataday2017.ispf.pf:3000/api",
+        // $.getJSON("result.json?age=" + self.age + "&sexe=" + self.sexe + "&ville=" + self.ville + "&profession=" + self.profession,
         //     function (data) {
         //         self.StatutMarital(data.StatutMarital);
         //         self.StatutMaritalFreq(data.StatutMaritalFreq);
         //         self.StatutOccupation(data.StatutOccupation);
+        //         console.log(self.StatutMarital());
         //     });
+
+        $.getJSON("http://opendataday2017.ispf.pf:3000/api/age/" + self.age() + "/ville/" + self.ville() + "/sexe/" + self.sexe() + "/profession/" + self.profession(),
+            function (data) {
+                console.log(data);
+                var item = data[0];
+                self.StatutMarital(item.StatutMarital);
+                self.StatutMaritalFreq(item.StatutMaritalFreq);
+                self.StatutOccupation(item.StatutOccupation);
+                self.DepenseAlcool(item.Alcool);
+                self.DepenseTabac(item.Tabac);
+            });
 
     };
 
@@ -48,12 +52,22 @@ var StatModel = function (age, sexe, ville, profession) {
 
     this.statusMaritalImage = ko.pureComputed(function () {
         var _status = '';
+        
         switch (this.StatutMarital()) {
             case 'Non concerné':
                 _status = '';
                 break;
-            case 'Marié':
+            case 'Marié(e)':
                 _status = 'marie';
+                break;
+            case 'Divorcée':
+                _status = 'divorce';
+                break;
+            case 'Célibataire':
+                _status = 'celibataire';
+                break;
+            case 'Veuf,veuve':
+                _status = 'veuf';
                 break;
         }
 
