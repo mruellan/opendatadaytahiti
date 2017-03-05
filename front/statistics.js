@@ -48,12 +48,22 @@ var StatModel = function (age, sexe, ville, profession) {
 
     this.statusMaritalImage = ko.pureComputed(function () {
         var _status = '';
+        
         switch (this.StatutMarital()) {
             case 'Non concerné':
                 _status = '';
                 break;
-            case 'Marié':
+            case 'Marié(e)':
                 _status = 'marie';
+                break;
+            case 'Divorcée':
+                _status = 'divorce';
+                break;
+            case 'Célibataire':
+                _status = 'celibataire';
+                break;
+            case 'Veuf,veuve':
+                _status = 'veuf';
                 break;
         }
 
