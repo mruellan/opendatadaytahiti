@@ -6,13 +6,17 @@ var StatModel = function (age, sexe, ville, profession) {
     this.ville = ko.observable(ville);
     this.profession = ko.observable(profession);
 
-    this.enfants = ko.observable(0);
+    this.StatutMarital = ko.observable('');
     this.pourcentageMarie = ko.observable(80);
+
+    this.StatutOccupation = ko.observable('');
+    this.DepenseAlcool = ko.observable(100000);
 
     self.loadJson = function () {
         $.getJSON("result.json?age=" + self.age + "&sexe=" + self.sexe + "&ville=" + self.ville + "&profession=" + self.profession,
             function (data) {
-                self.enfants(data.enfants);
+                self.StatutMarital(data.StatutMarital);
+                self.StatutOccupation(data.StatutOccupation);
             });
     };
 
@@ -27,6 +31,68 @@ var StatModel = function (age, sexe, ville, profession) {
 
     this.chanceDetreMarie = ko.pureComputed(function () {
         return this.pourcentageMarie() + '%';
+    }, this);
+
+    this.statusMaritalImage = ko.pureComputed(function () {
+        var _status = '';
+        switch (this.StatutMarital()) {
+            case 'Non concerné':
+                _status = '';
+                break;
+            case 'Marié':
+                _status = 'marie';
+                break;
+        }
+
+        return 'images/statut-marital-' + _status + '.png';
+    }, this);
+
+    this.statutOccupationImage = ko.pureComputed(function () {
+        var _status = '';
+
+        if (this.StatutOccupation().toLowerCase().indexOf("propriétaire") >= 0) {
+            _status = 'proprietaire';
+        }
+        else if (this.StatutOccupation().toLowerCase().indexOf("locataire") >= 0) {
+            _status = 'locataire';
+        }
+        else if (this.StatutOccupation().toLowerCase().indexOf("gratuit") >= 0) {
+            _status = 'gratuit';
+        }
+
+        return 'images/statut-occupation-' + _status + '.png';
+    }, this);
+
+    this.statutOccupationText = ko.pureComputed(function () {
+        var _status = '';
+
+        if (this.StatutOccupation().toLowerCase().indexOf("propriétaire") >= 0) {
+            _status = 'Propriétaire';
+        }
+        else if (this.StatutOccupation().toLowerCase().indexOf("locataire") >= 0) {
+            _status = 'Locataire';
+        }
+        else if (this.StatutOccupation().toLowerCase().indexOf("gratuit") >= 0) {
+            _status = 'Occupant à titre gratuit';
+        }
+
+        return _status;
+    }, this);
+
+    this.biereBouteillesHtml = ko.pureComputed(function () {
+        var numBouteilles = this.DepenseAlcool() / 5000;
+        var html = '';
+        for (var bouteille = 0; bouteille < numBouteilles; bouteille++) {
+            html += '<img src="images/alcool.png">';
+        }
+        return html;
+    }, this);
+
+    this.depenseAlcoolEnFrancs = ko.pureComputed(function () {
+        var miliersDeFrancs = parseInt(this.DepenseAlcool() / 1000);
+        var html = miliersDeFrancs+' 000';
+        html += '<span class="monnaie">F</span>';
+        return html;
     }, this);
 };
 

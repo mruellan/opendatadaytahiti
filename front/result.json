@@ -1,3 +1,10 @@
 {
-    "enfants": 2
+  "Comas": "Afaahiti",
+  "Ile": "Tahiti",
+  "TrancheAge": "0 - 13 ans",
+  "CSP": "Sans emploi",
+  "StatutMarital": "Marié",
+  "StatutOccupation": "Propriétaire du sol et du logement",
+  "AgeMin": 0,
+  "AgeMax": 13
 }
