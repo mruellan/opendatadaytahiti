@@ -5,10 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>StatisticNesia</title>
+    <title>Open Data ISPF</title>
 
     <!-- Bootstrap -->
     <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/general.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,19 +21,38 @@
     <![endif]-->
 </head>
 <body>
-<h1>Mon Dashboard</h1>
 
-<h2>Age: <span data-bind="text: age"> </span> ans</h2>
+<h1>OPEN DATA TAHITI</h1>
+<h2>ISPF</h2>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-xs-6 col-md-3 criteria-ville criteria">
+            <object data="images/tahiti.svg" type="image/svg+xml"></object><br>
+            Si j'habite à <span data-bind="text: ville"> </span>
+        </div>
+        <div class="col-xs-6 col-md-3 criteria-sexe criteria">
+            <img data-bind="attr: {src: sexeImage}"><br>
+            Que je suis <span data-bind="text: sexeAvecPreposition"> </span>
+        </div>
+        <div class="col-xs-6 col-md-3 criteria-age criteria">
+            <span data-bind="text: age" class="age font-bold"></span><br>
+            Que j&#39;ai <span data-bind="text: age"></span> ans
+        </div>
+        <div class="col-xs-6 col-md-3 criteria-profession criteria">
+            <span data-bind="text: profession" class="profession font-bold"></span><br>
+            et que je suis <span data-bind="text: profession"> </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 result-box">
             <h2>Tu as: <span data-bind="text: enfants"> </span> enfants</h2>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 result-box">
 
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 result-box">
 
         </div>
     </div>
