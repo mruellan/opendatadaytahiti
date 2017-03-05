@@ -7,18 +7,30 @@ var StatModel = function (age, sexe, ville, profession) {
     this.profession = ko.observable(profession);
 
     this.StatutMarital = ko.observable('');
-    this.pourcentageMarie = ko.observable(80);
+    this.StatutMaritalFreq = ko.observable(0.8);
 
     this.StatutOccupation = ko.observable('');
     this.DepenseAlcool = ko.observable(12000);
     this.DepenseTabac = ko.observable(4000);
+    this.NumAnimal = ko.observable(3);
 
     self.loadJson = function () {
+
         $.getJSON("result.json?age=" + self.age + "&sexe=" + self.sexe + "&ville=" + self.ville + "&profession=" + self.profession,
             function (data) {
                 self.StatutMarital(data.StatutMarital);
+                self.StatutMaritalFreq(data.StatutMaritalFreq);
                 self.StatutOccupation(data.StatutOccupation);
+                console.log(self.StatutMarital());
             });
+
+        // $.getJSON("http://opendataday2017.ispf.pf:3000/api",
+        //     function (data) {
+        //         self.StatutMarital(data.StatutMarital);
+        //         self.StatutMaritalFreq(data.StatutMaritalFreq);
+        //         self.StatutOccupation(data.StatutOccupation);
+        //     });
+
     };
 
     this.sexeAvecPreposition = ko.pureComputed(function () {
@@ -31,7 +43,7 @@ var StatModel = function (age, sexe, ville, profession) {
     }, this);
 
     this.chanceDetreMarie = ko.pureComputed(function () {
-        return this.pourcentageMarie() + '%';
+        return parseInt(this.StatutMaritalFreq() * 100);
     }, this);
 
     this.statusMaritalImage = ko.pureComputed(function () {
@@ -91,7 +103,7 @@ var StatModel = function (age, sexe, ville, profession) {
 
     this.depenseAlcoolEnFrancs = ko.pureComputed(function () {
         var miliersDeFrancs = parseInt(this.DepenseAlcool() / 1000);
-        var html = miliersDeFrancs+' 000';
+        var html = miliersDeFrancs + ' 000';
         html += '<span class="monnaie">F</span>';
         return html;
     }, this);
@@ -107,8 +119,39 @@ var StatModel = function (age, sexe, ville, profession) {
 
     this.depenseTabacEnFrancs = ko.pureComputed(function () {
         var miliersDeFrancs = parseInt(this.DepenseTabac() / 1000);
-        var html = miliersDeFrancs+' 000';
+        var html = miliersDeFrancs + ' 000';
         html += '<span class="monnaie">F</span>';
+        return html;
+    }, this);
+
+    this.animalImage = ko.pureComputed(function () {
+        var numAnimal = this.NumAnimal();
+        var src = '';
+        switch (numAnimal) {
+            case 0:
+                src = 'animals-none.png';
+                break;
+            case 1:
+                src = 'animal-dog.png';
+                break;
+            case 2:
+            case 3:
+            case 4:
+                src = 'animal-cat-and-dog.png';
+                break;
+        }
+        return 'images/' + src;
+    }, this);
+
+    this.animalText = ko.pureComputed(function () {
+        var html = "Je n'ai certainement pas d'animal pour l'instant";
+        if (this.NumAnimal() > 0) {
+            html = "J'aime les animaux et j'ai ";
+            html += '<span class="font-bold">';
+            html += this.NumAnimal();
+            html += this.NumAnimal() > 1 ? " animaux" : " animal";
+            html += "</span>";
+        }
         return html;
     }, this);
 };
