@@ -4,6 +4,8 @@
   "TrancheAge": "0 - 13 ans",
   "CSP": "Sans emploi",
   "StatutMarital": "Marié",
+  "StatutMaritalFreq": 0.29,
+  "NumAnimals": 1,
   "StatutOccupation": "Propriétaire du sol et du logement",
   "AgeMin": 0,
   "AgeMax": 13

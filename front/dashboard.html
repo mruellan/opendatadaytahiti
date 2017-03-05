@@ -29,7 +29,7 @@
     <div class="row row-criteria">
         <div class="col-xs-offset-1 col-xs-5 col-md-offset-2 col-md-2 criteria-ville criteria">
             <div class="illustration">
-                <object data="images/tahiti.svg" type="image/svg+xml"></object>
+                <object id="tahitiSVG" data="images/tahiti.svg" type="image/svg+xml"></object>
                 <br>
             </div>
             Si j'habite à <span data-bind="text: ville"> </span>
@@ -59,7 +59,7 @@
             <div class="result-illustration">
                 <img data-bind="attr: {src: statusMaritalImage}">
             </div>
-            J&#39;ai <span data-bind="text: chanceDetreMarie" class="font-bold"> </span> de chance d&#39;être marié(e)
+            J&#39;ai <span data-bind="text: chanceDetreMarie" class="font-bold"> </span><span class="monnaie">%</span> de chance d&#39;être marié(e)
         </div>
 
         <div class="col-md-4 result-box result-occupation">
@@ -70,16 +70,25 @@
             <span data-bind="text: statutOccupationText" class="font-bold"> </span>
         </div>
 
+        <div class="col-md-4 result-box result-animal">
+            <div class="result-illustration">
+                <img data-bind="attr: {src: animalImage}">
+            </div>
+            <div data-bind="html: animalText"></div>
+        </div>
+
         <div class="col-md-4 result-box result-alcool">
             <div class="result-illustration" data-bind="html: biereBouteillesHtml">
             </div>
-            <div data-bind="html: depenseAlcoolEnFrancs" class="font-bold"> </div> Le budget mensuel par UC pour l'alcool
+            <div data-bind="html: depenseAlcoolEnFrancs" class="font-bold"></div>
+            Le budget mensuel par UC pour l'alcool
         </div>
 
         <div class="col-md-4 result-box result-alcool">
             <div class="result-illustration" data-bind="html: tabacPaquetHtml">
             </div>
-            <div data-bind="html: depenseTabacEnFrancs" class="font-bold"> </div> Le budget mensuel par UC pour le tabac
+            <div data-bind="html: depenseTabacEnFrancs" class="font-bold"></div>
+            Le budget mensuel par UC pour le tabac
         </div>
 
     </div>
@@ -92,5 +101,15 @@
 <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="lib/knockout-3.4.1.js"></script>
 <script src="statistics.js"></script>
+<script>
+    var a = document.getElementById("tahitiSVG");
+    a.addEventListener("load", function () {
+        var svgDoc = a.contentDocument;
+        var pathElm = svgDoc.getElementById(getUrlParameter('ville'));
+        if (pathElm) {
+            pathElm.setAttribute('fill', '#46B497');
+        }
+    }, false);
+</script>
 </body>
 </html>
