@@ -54,16 +54,16 @@ var StatModel = function (age, sexe, ville, profession) {
         var _status = '';
         
         switch (this.StatutMarital()) {
-            case 'Non concerné':
+            case 'Non concerne':
                 _status = '';
                 break;
-            case 'Marié(e)':
+            case 'Marie':
                 _status = 'marie';
                 break;
-            case 'Divorcée':
+            case 'Divorce':
                 _status = 'divorce';
                 break;
-            case 'Célibataire':
+            case 'Celibataire':
                 _status = 'celibataire';
                 break;
             case 'Veuf,veuve':
