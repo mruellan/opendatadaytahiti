@@ -89,7 +89,25 @@ var StatModel = function (age, sexe, ville, profession) {
 
         return 'images/statut-occupation-' + _status + '.png';
     }, this);
-    this.statutMaritalText = this.StatutMarital();
+
+    this.statutMaritalText = ko.pureComputed(function () {
+        var _status = '';
+
+        if (this.statutMarital().toLowerCase().indexOf("marie") >= 0) {
+            _status = 'marié';
+        }
+        else if (this.statutMarital().toLowerCase().indexOf("divorce") >= 0) {
+            _status = 'divorcé';
+        }
+        else if (this.statutMarital().toLowerCase().indexOf("celibataire") >= 0) {
+            _status = 'célibataire';
+        }
+        else if (this.statutMarital().toLowerCase().indexOf("veuf,veuve") >= 0) {
+            _status = 'veuf';
+        }
+
+        return _status;
+    }, this);
 
     this.statutOccupationText = ko.pureComputed(function () {
         var _status = '';
