@@ -32,7 +32,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.min.js"></script>
     
 
+
     <script>
+
+var villesTahiti=[
+    'Faaone',
+    'Mataiea',
+    'Hitiaa',
+    'Afaahiti',
+    'afaahiti',
+    'Papeari',
+    'Papara',
+    'Paea',
+    'Punaauia',
+    'Faaa',
+    'Papeete',
+
+
+]
+
     $(function() {
 
         // With JQuery
@@ -41,7 +59,6 @@
         $("#age").on("slide", function(slideEvt) {
             $("#labelAge").text('Age : ' + slideEvt.value + 'ans');
         });
-
 
         $("#btnStep1").click(function() {
             $( "#step1" ).hide(400);
@@ -62,12 +79,50 @@
            $("#btnStep4").click(function() {
                window.location.href = "dashboard.html"
         });
+
+
+        var a = document.getElementById("tahitiSVG");
+
+            // It's important to add an load event listener to the object,
+            // as it will load the svg doc asynchronously
+            a.addEventListener("load",function(){
+
+                // get the inner DOM of alpha.svg
+                var svgDoc = a.contentDocument;
+
+                for (var i = 0;i<villesTahiti.length; i++)
+                {
+                    var ville = villesTahiti[i];
+                    var pathElm = svgDoc.getElementById(ville);
+                    if (pathElm)
+                    {
+                    // add behaviour
+                        pathElm.addEventListener("click",function(e){
+                            alert(e.currentTarget.id);
+                        }, false);
+
+                         pathElm.addEventListener("mouseover",function(e){
+                            e.currentTarget.setAttribute('fill', '#aaaaaa');
+                            $("#spanCommune").text(e.currentTarget.id);
+                        }, false);
+
+                          pathElm.addEventListener("mouseout",function(e){
+                            e.currentTarget.setAttribute('fill', '#111111');
+                             $("#spanCommune").text('');
+                        }, false);
+                    }
+
+                }
+
+                // get the inner element by id
+               
+            }, false);
     });
     </script>
     <form>
         <div id="step1">
-            Sélectionner votre commune<br/>
-           <object type="image/svg+xml" data="images/tahiti.svg">
+            Commune : <span id='spanCommune'></span><br/>
+           <object type="image/svg+xml" id="tahitiSVG" data="images/tahiti.svg">
            </object>  
             <button type="button" id='btnStep1' class="btn btn-primary">Suivant</button>
         </div>
