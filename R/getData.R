@@ -15,6 +15,17 @@ colnames(EBF)<-c("Comas","Ile", "Sexe", "TrancheAge", "CSP", "Menages", "Individ
 
 
 
+
+EBFDepenses<-sqlQuery(myconn,"select * from openquery([SQL_CUBEEBF],'with member measures.[Alcool] as ([Measures].[Dépenses moyennes mensuelles par ménage répondant],[Depenses].[COICOP].[Groupe].&[021])
+member measures.[Tabac] as ([Measures].[Dépenses moyennes mensuelles par ménage répondant],[Depenses].[COICOP].[Groupe].&[022])
+                      select 
+                      non empty {[Measures].[alcool], [Measures].[tabac]} on 0,
+                      non empty ([Géographie].[Comas].children,[Géographie].[Ile].children,
+                      [Individu].[Tranche Age].children, [Individu].[Sexe].children, 
+                      [Individu].[CS8].children) on 1
+                      from EBF')")
+colnames(EBFDepenses)<-c("Comas", "Ile", "TrancheAge", "Sexe", "CSP", "Alcool", "Tabac")
+
 RP<-sqlQuery(myconn, "select * from openquery([RP2012],'select 
 non empty {[Measures].[Menages],[Measures].[Individus],[Measures].[Résidences principales],
 [Measures].[Population moyenne du ménage]
@@ -24,9 +35,6 @@ non empty ([Geographie].[Comas].children,[Geographie].[Ile].children,
 from RP2012')")
 colnames(RP)<-c("Comas","Ile", "Sexe", "TrancheAge", "CSP", "Menages", "Individus","ResidencesPrincipales","PopMoyenneMenage")
   
-
-
-
 RP2<-sqlQuery(myconn,"select  Comas, Ile, a.age3112 as Age, left(j.Sexe,5) as Sexe,  g.TrancheAge, CSP1, CSP1Lib, Q9Lib,
 isnull(Q6Lib, 'Non renseigné') as StatutOccupation
               from  RP2012Cube.dbo.BI a
@@ -58,14 +66,22 @@ RP3$AgeMin<-as.numeric(substr(RP3$TrancheAge,0,2))
 RP3$AgeMax<-as.numeric(substr(RP3$TrancheAge,5,7))
 RP3[is.na(RP3$AgeMax),]$AgeMax <- 150
 
+trim.trailing <- function (x) sub("^\\s+", "", x)
+trim.trailing(EBFDepenses$CSP)
+
 RP3$Nombre<-NULL
 
-# write.csv2(EBF, "EBF.csv", row.names = FALSE, na = "")
-# write.csv2(RP, "RP.csv", row.names = FALSE, na = "")
+EBFDepenses$CSP<-as.character(EBFDepenses$CSP)
+EBFDepenses[EBFDepenses$CSP==" Agriculteur"
+
+
+
+
+table(RP3$CSP)
+table(EBFDepenses$CSP)
+
+
 write.csv2(RP3, "RP3.csv", row.names = FALSE, na = "")
 sink("rp3.json")
 cat(jsonlite::toJSON(RP3))
 sink()
-
-Comas<-as.data.frame(table(RP3$Comas))
-write.csv2(Comas)
