@@ -10,7 +10,8 @@ var StatModel = function (age, sexe, ville, profession) {
     this.pourcentageMarie = ko.observable(80);
 
     this.StatutOccupation = ko.observable('');
-    this.DepenseAlcool = ko.observable(100000);
+    this.DepenseAlcool = ko.observable(12000);
+    this.DepenseTabac = ko.observable(4000);
 
     self.loadJson = function () {
         $.getJSON("result.json?age=" + self.age + "&sexe=" + self.sexe + "&ville=" + self.ville + "&profession=" + self.profession,
@@ -80,7 +81,7 @@ var StatModel = function (age, sexe, ville, profession) {
     }, this);
 
     this.biereBouteillesHtml = ko.pureComputed(function () {
-        var numBouteilles = this.DepenseAlcool() / 5000;
+        var numBouteilles = this.DepenseAlcool() / 1000;
         var html = '';
         for (var bouteille = 0; bouteille < numBouteilles; bouteille++) {
             html += '<img src="images/alcool.png">';
@@ -90,6 +91,22 @@ var StatModel = function (age, sexe, ville, profession) {
 
     this.depenseAlcoolEnFrancs = ko.pureComputed(function () {
         var miliersDeFrancs = parseInt(this.DepenseAlcool() / 1000);
+        var html = miliersDeFrancs+' 000';
+        html += '<span class="monnaie">F</span>';
+        return html;
+    }, this);
+
+    this.tabacPaquetHtml = ko.pureComputed(function () {
+        var numPaquets = this.DepenseTabac() / 600;
+        var html = '';
+        for (var paquet = 0; paquet < numPaquets; paquet++) {
+            html += '<img src="images/cigarettes.png">';
+        }
+        return html;
+    }, this);
+
+    this.depenseTabacEnFrancs = ko.pureComputed(function () {
+        var miliersDeFrancs = parseInt(this.DepenseTabac() / 1000);
         var html = miliersDeFrancs+' 000';
         html += '<span class="monnaie">F</span>';
         return html;
