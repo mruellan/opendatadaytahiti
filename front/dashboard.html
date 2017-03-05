@@ -26,38 +26,48 @@
 <h2>ISPF</h2>
 
 <div class="container">
-    <div class="row">
-        <div class="col-xs-6 col-md-3 criteria-ville criteria">
-            <object data="images/tahiti.svg" type="image/svg+xml"></object><br>
+    <div class="row row-criteria">
+        <div class="col-xs-offset-1 col-xs-5 col-md-offset-2 col-md-2 criteria-ville criteria">
+            <div class="illustration">
+                <object data="images/tahiti.svg" type="image/svg+xml"></object>
+                <br>
+            </div>
             Si j'habite à <span data-bind="text: ville"> </span>
         </div>
-        <div class="col-xs-6 col-md-3 criteria-sexe criteria">
-            <img data-bind="attr: {src: sexeImage}"><br>
-            Que je suis <span data-bind="text: sexeAvecPreposition"> </span>
+        <div class="col-xs-5 col-md-2 criteria-sexe criteria">
+            <div class="illustration">
+                <object data-bind="attr: {data: sexeImage}" type="image/svg+xml"></object>
+            </div>
+            que je suis <span data-bind="text: sexeAvecPreposition"> </span>
         </div>
-        <div class="col-xs-6 col-md-3 criteria-age criteria">
-            <span data-bind="text: age" class="age font-bold"></span><br>
-            Que j&#39;ai <span data-bind="text: age"></span> ans
+        <div class="col-xs-offset-1 col-xs-5 col-md-offset-0 col-md-2 criteria-age criteria">
+            <div class="illustration">
+                <span data-bind="text: age" class="age font-bold"></span><br>
+            </div>
+            que j&#39;ai <span data-bind="text: age"></span> ans
         </div>
-        <div class="col-xs-6 col-md-3 criteria-profession criteria">
-            <span data-bind="text: profession" class="profession font-bold"></span><br>
+        <div class="col-xs-5 col-md-2 criteria-profession criteria">
+            <div class="illustration">
+                <span data-bind="text: profession" class="profession font-bold"></span><br>
+            </div>
             et que je suis <span data-bind="text: profession"> </span>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-4 result-box">
-            <h2>Tu as: <span data-bind="text: enfants"> </span> enfants</h2>
+        <div class="col-md-4 result-box result-marie">
+            J&#39;ai <span data-bind="text: chanceDetreMarie" class="font-bold"> </span> de chance d&#39;être marié(e)
         </div>
         <div class="col-md-4 result-box">
+            <h2>Tu as: <span data-bind="text: enfants"> </span> enfants</h2>
 
         </div>
         <div class="col-md-4 result-box">
+            <h2>Tu as: <span data-bind="text: enfants"> </span> enfants</h2>
 
         </div>
     </div>
 </div>
-
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

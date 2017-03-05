@@ -7,6 +7,7 @@ var StatModel = function (age, sexe, ville, profession) {
     this.profession = ko.observable(profession);
 
     this.enfants = ko.observable(0);
+    this.pourcentageMarie = ko.observable(80);
 
     self.loadJson = function () {
         $.getJSON("result.json?age=" + self.age + "&sexe=" + self.sexe + "&ville=" + self.ville + "&profession=" + self.profession,
@@ -15,14 +16,18 @@ var StatModel = function (age, sexe, ville, profession) {
             });
     };
 
-    this.sexeAvecPreposition = ko.pureComputed( function () {
+    this.sexeAvecPreposition = ko.pureComputed(function () {
         var preposition = this.sexe() == 'femme' ? 'une' : 'un';
         return preposition + ' ' + this.sexe();
-    }, this );
+    }, this);
 
-    this.sexeImage = ko.pureComputed( function () {
-        return this.sexe() == 'femme' ? 'femme' : 'homme';
-    }, this );
+    this.sexeImage = ko.pureComputed(function () {
+        return this.sexe() == 'femme' ? 'images/femme.svg' : 'images/homme.svg';
+    }, this);
+
+    this.chanceDetreMarie = ko.pureComputed(function () {
+        return this.pourcentageMarie() + '%';
+    }, this);
 };
 
 function getUrlParameter(sParam) {
