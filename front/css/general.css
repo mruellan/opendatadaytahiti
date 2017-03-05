@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+.font-bold {
+    font-family: 'Oswald', sans-serif;
+}
+
+html, body {
+    font-family: 'Nunito', sans-serif;
+}
+
+h1 {
+    background-color: #49B698;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+}
+
+h2 {
+    color: #618480;
+    font-size: 20px;
+    text-align: center;
+    border-bottom: 1px solid #618480;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 5px;
+}
