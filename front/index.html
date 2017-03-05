@@ -12,9 +12,9 @@
     <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/formulaire.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/css/bootstrap-slider.min.css" rel="stylesheet">
-    
+
     <link href="css/general.css" rel="stylesheet">
-    
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,7 +25,7 @@
 </head>
 
 <body>
-    
+
 <h1>OPEN DATA TAHITI</h1>
 <h2>ISPF</h2>
 
@@ -49,17 +49,17 @@
         </div>
     </div>
     <center>
-        <div id="step0">  
-   
+        <div id="step0">
+
            <div style="text-align: center;font-size: 40px;width: 70%;color:#49B698">
                   <center>SI VOUS ETIEZ UN AUTRE HABITANT DE LA POLYNESIE  </center>
            </div>
-           
+
       <br/><br/>
            <div class="col-md-12"  style="text-align: center">
                <button class="font-bold" style="background-color: #49B698;width: auto;font-size: 50px;color:#FFFFFF" id='btnStep0'>QUI SERIEZ VOUS ?</div>
            </div>
-      
+
         </div>
         </center>
         <div id="step1" style="display: none">
@@ -74,7 +74,7 @@
         </div>
          <div id="step3" style="display: none">
              <span id="labelAge">Age : 25 ans</span><br/>
-             <input id="age" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="99" 
+             <input id="age" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="99"
                 data-slider-step="1" data-slider-value="25" data-slider-tooltip="hide" />
              <button type="button" id='btnStep3' class="btn btn-primary">Suivant</button>
         </div>
@@ -90,11 +90,11 @@
                 <option value="Sans emploi">Sans emploi</option>
                 <option value="Professions intermédiaires">Professions intermédiaires</option>
                 <option value="Né après le 22/08/1998">Né après le 22/08/1998</option>
-               
+
             </select>
              <button type="button" id='btnStep4' class="btn btn-primary">OK</button>
         </div>
-  
+
 </div>
 
 </body>
@@ -104,7 +104,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.min.js"></script>
-    
+
 
 
     <script>
@@ -144,54 +144,54 @@ var villesTahiti=[
 
     function goToStep1()
     {
-        $( "#step0" ).hide();  
+        $( "#step0" ).hide();
         $(".criteria-ville").hide();
         $(".criteria-sexe").hide();
         $(".criteria-age").hide();
         $(".criteria-profession").hide();
         $( "#step1" ).show(400);
-        $( "#step2" ).hide();  
-        $( "#step3" ).hide();  
-        $( "#step4" ).hide();  
+        $( "#step2" ).hide();
+        $( "#step3" ).hide();
+        $( "#step4" ).hide();
     }
 
     function goToStep2()
     {
-        $( "#step0" ).hide();  
+        $( "#step0" ).hide();
        $(".criteria-ville").show();
         $(".criteria-sexe").hide();
         $(".criteria-age").hide();
         $(".criteria-profession").hide();
-        $( "#step1" ).hide(); 
-        $( "#step2" ).show(400); 
-        $( "#step3" ).hide();  
-        $( "#step4" ).hide();  
+        $( "#step1" ).hide();
+        $( "#step2" ).show(400);
+        $( "#step3" ).hide();
+        $( "#step4" ).hide();
     }
 
      function goToStep3()
     {
-        $( "#step0" ).hide();  
+        $( "#step0" ).hide();
           $(".criteria-ville").show();
         $(".criteria-sexe").show();
         $(".criteria-age").hide();
         $(".criteria-profession").hide();
-        $( "#step1" ).hide(); 
-        $( "#step2" ).hide(); 
+        $( "#step1" ).hide();
+        $( "#step2" ).hide();
         $( "#step3" ).show(400);
-        $( "#step4" ).hide();  
+        $( "#step4" ).hide();
     }
 
        function goToStep4()
     {
-        $( "#step0" ).hide();  
+        $( "#step0" ).hide();
          $(".criteria-ville").show();
         $(".criteria-sexe").show();
         $(".criteria-age").show();
         $(".criteria-profession").hide();
-        $( "#step1" ).hide(); 
-        $( "#step2" ).hide();  
-        $( "#step3" ).hide();  
-        $( "#step4" ).show(400);  
+        $( "#step1" ).hide();
+        $( "#step2" ).hide();
+        $( "#step3" ).hide();
+        $( "#step4" ).show(400);
     }
 
     $(function() {
@@ -213,7 +213,7 @@ var villesTahiti=[
                 var svgDoc = a.contentDocument;
 
                 for (var i = 0;i<villesTahiti.length; i++)
-                { 
+                {
                     var currentVille = villesTahiti[i];
                     var pathElm = svgDoc.getElementById(currentVille);
                     if (pathElm)
@@ -240,20 +240,20 @@ var villesTahiti=[
                 }
 
                 // get the inner element by id
-               
+
             }, false);
 
         $('#age').slider();
 
           //STEP2
         $("#imgHomme").click(function() {
-            sexe = 'homme';
+            sexe = 'Homme';
             $("#headerSexe").text('homme');
            goToStep3();
         });
 
          $("#imgFemme").click(function() {
-            sexe = 'femme';
+            sexe = 'Femme';
             $("#headerSexe").text('femme');
            goToStep3();
         });
@@ -268,16 +268,16 @@ var villesTahiti=[
            goToStep4();
         });
 
-        
+
         $("#btnStep4").click(function() {
                profession = $("#CSP").val();
                window.location.href = "dashboard.html?ville=" + ville+"&sexe=" + sexe + "&age="  + age + "&profession=" +profession;
         });
 
-      
 
 
-      
+
+
     });
     </script>
 
