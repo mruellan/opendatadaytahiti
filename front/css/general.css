@@ -3,6 +3,7 @@
 
 .font-bold {
     font-family: 'Oswald', sans-serif;
+    font-weight: bold;
 }
 
 html, body {

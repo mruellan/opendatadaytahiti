@@ -1,5 +1,5 @@
 library(RODBC)
-library(r)
+library(dplyr)
 
 myconn <-odbcConnect("RP2012")
 EBF <- sqlQuery(myconn, "
@@ -45,26 +45,27 @@ RP2$CSP2Lib<-as.character(RP2$CSP1Lib)
 RP2[RP2$CSP1>6,]$CSP2<-7
 RP2[RP2$CSP1>6,]$CSP2Lib<-"Sans emploi"
 
-table(RP3$TrancheAge)
-as.numeric(RP3$TrancheAge)
-
 RP3 <- RP2 %>% 
-  group_by_(.dots=c("Comas", "Ile","TrancheAge", "CSP2Lib")) %>% 
+  group_by_(.dots=c("Comas", "Ile","TrancheAge", "Sexe", "CSP2Lib")) %>% 
   summarise(StatutMarital = names(table(Q9Lib))[which.max(table(Q9Lib))],
-            StatutOccupation = names(table(StatutOccupation))[which.max(table(StatutOccupation))])
+            n=n(), 
+            StatutOccupation = names(table(StatutOccupation))[which.max(table(StatutOccupation))])%>%
+  mutate(StatutMaritalFreq = n / sum(n))
 
-colnames(RP3)<-c("Comas", "Ile", "TrancheAge", "CSP", "StatutMarital", "StatutOccupation")
+colnames(RP3)<-c("Comas", "Ile", "TrancheAge", "Sexe", "CSP", "StatutMarital", "Nombre", "StatutOccupation", "StatutMaritalFreq")
 
 RP3$AgeMin<-as.numeric(substr(RP3$TrancheAge,0,2))
 RP3$AgeMax<-as.numeric(substr(RP3$TrancheAge,5,7))
 RP3[is.na(RP3$AgeMax),]$AgeMax <- 150
 
+RP3$Nombre<-NULL
 
-write.csv2(EBF, "EBF.csv", row.names = FALSE, na = "")
-write.csv2(RP, "RP.csv", row.names = FALSE, na = "")
+# write.csv2(EBF, "EBF.csv", row.names = FALSE, na = "")
+# write.csv2(RP, "RP.csv", row.names = FALSE, na = "")
 write.csv2(RP3, "RP3.csv", row.names = FALSE, na = "")
-x<-jsonlite::toJSON(RP3)
-
 sink("rp3.json")
 cat(jsonlite::toJSON(RP3))
 sink()
+
+Comas<-as.data.frame(table(RP3$Comas))
+write.csv2(Comas)
