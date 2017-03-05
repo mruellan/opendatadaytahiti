@@ -1,20 +1,47 @@
 .result-box {
     color: #C63226;
+    font-size: 18px;
+    text-align: center;
+}
+
+.row-criteria {
+    margin: 20px 0;
+    font-size: 13px;
 }
 
 .criteria {
     height: 100px;
+    text-align: center;
+}
+
+.criteria .illustration {
+    height: 70px;
 }
 
 .criteria-ville object {
     width: 100px;
 }
+
+.criteria-sexe object {
+    height: 60px;
+}
+
 .criteria-age .age {
     font-size: 48px;
     color: #49B698;
     font-weight: bold;
 }
 .criteria-profession .profession {
-    font-size: 48px;
+    font-size: 36px;
     color: #49B698;
+}
+
+.criteria-profession .illustration {
+    padding-top: 10px;
+}
+
+.result-marie span {
+    font-size: 24px;
+    font-weight: bold;
+
 }
