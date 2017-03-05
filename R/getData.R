@@ -1,6 +1,6 @@
 library(RODBC)
 library(dplyr)
-
+library(mice)
 myconn <-odbcConnect("RP2012")
 EBF <- sqlQuery(myconn, "
 select * from openquery([SQL_CUBEEBF],'select 
@@ -65,23 +65,32 @@ colnames(RP3)<-c("Comas", "Ile", "TrancheAge", "Sexe", "CSP", "StatutMarital", "
 RP3$AgeMin<-as.numeric(substr(RP3$TrancheAge,0,2))
 RP3$AgeMax<-as.numeric(substr(RP3$TrancheAge,5,7))
 RP3[is.na(RP3$AgeMax),]$AgeMax <- 150
-
-trim.trailing <- function (x) sub("^\\s+", "", x)
-trim.trailing(EBFDepenses$CSP)
-
 RP3$Nombre<-NULL
 
-EBFDepenses$CSP<-as.character(EBFDepenses$CSP)
-EBFDepenses[EBFDepenses$CSP==" Agriculteur"
-
-
-
+trim.trailing <- function (x) sub("^\\s+", "", x)
+EBFDepenses$CSP<-trim.trailing(EBFDepenses$CSP)
+EBFDepenses[EBFDepenses$CSP=="Agriculteur",]$CSP<-"Agriculteurs exploitants"
+EBFDepenses[EBFDepenses$CSP=="Artisans, commercants, patrons",]$CSP<-"Artisans, commerçants et chefs d'entreprise"
+EBFDepenses[EBFDepenses$CSP=="Cadres",]$CSP<-"Cadres et professions intellectuelles supérieures"
+EBFDepenses[EBFDepenses$CSP=="Autres inactifs",]$CSP<-"Sans emploi"
+EBFDepenses[EBFDepenses$CSP=="Retraités",]$CSP<-"Sans emploi"
 
 table(RP3$CSP)
 table(EBFDepenses$CSP)
 
+RP4<-merge(RP3, EBFDepenses, by=c("Comas", "Ile", "TrancheAge", "Sexe", "CSP"), all.x = TRUE )
+
+RP4<-RP4[RP4$Ile=="Tahiti",]
+
+
+RP4[is.na(RP4$Alcool),]$Alcool<-mean(RP4$Alcool, na.rm = TRUE)
+RP4[is.na(RP4$Tabac),]$Tabac<-mean(RP4$Tabac, na.rm = TRUE)
+
 
 write.csv2(RP3, "RP3.csv", row.names = FALSE, na = "")
+write.csv2(RP4, "RP4.csv", row.names = FALSE, na = "")
 sink("rp3.json")
 cat(jsonlite::toJSON(RP3))
+sink("rp4.json")
+cat(jsonlite::toJSON(RP4))
 sink()
