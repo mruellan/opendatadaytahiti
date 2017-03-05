@@ -1,6 +1,6 @@
 library(RODBC)
 
-myconn <-odbcConnect("EFH")
+myconn <-odbcConnect("RP2012")
 EBF <- sqlQuery(myconn, "
 select * from openquery([SQL_CUBEEBF],'select 
 non empty {[Measures].[Ménages],[Measures].[Individus],
@@ -10,7 +10,7 @@ non empty {[Measures].[Ménages],[Measures].[Individus],
                         non empty ([Géographie].[Comas].children,[Géographie].[Ile].children,
                         [Individu].[Sexe].children, [Individu].[Tranche Age].children, [Individu].[CS8 Courte].children) on 1
                         from EBF')")
-colnames(EBF)<-c("Comas","Ile", "Sexe", "TrancheAge", "CS8", "Menages", "Individus","Depenses","Ressources", "DMM")
+colnames(EBF)<-c("Comas","Ile", "Sexe", "TrancheAge", "CSP", "Menages", "Individus","Depenses","Ressources", "DMM")
 
 
 
@@ -21,9 +21,39 @@ non empty {[Measures].[Menages],[Measures].[Individus],[Measures].[Résidences pr
 non empty ([Geographie].[Comas].children,[Geographie].[Ile].children,
 [Individus].[Sexe].children, [Individus].[Age décennal 80].children, [Individus].[CSP].[CSP1]) on 1
 from RP2012')")
-colnames(RP)<-c("Comas","Ile", "Sexe", "TrancheAge", "CS8", "Menages", "Individus","ResidencesPrincipales","PopMoyenneMenage")
+colnames(RP)<-c("Comas","Ile", "Sexe", "TrancheAge", "CSP", "Menages", "Individus","ResidencesPrincipales","PopMoyenneMenage")
+  
+
+
+
+RP2<-sqlQuery(myconn,"select  Comas, Ile, a.age3112 as Age, left(j.Sexe,5) as Sexe,  g.TrancheAge, CSP1, CSP1Lib, Q9Lib,
+isnull(Q6Lib, 'Non renseigné') as StatutOccupation
+              from  RP2012Cube.dbo.BI a
+              left outer join RP2012Cube.dbo.FL fl on a.idfl=fl.idfl
+              left outer join RP2012Cube.BI.Q09 b on a.Q9=b.Q9
+              left outer join SIG.dbo.GeoPassage c on left(a.iddist,5)=c.idgeo
+              left outer join SIG.dbo.CommunesAssociees d on c.idcomas=d.idcomas
+              left outer join SIG.dbo.Iles e on c.idile=e.idile
+              left outer join RP2012Cube.BI.CSPCommune f on a.csp=f.csp4
+              left outer join (select distinct age, trancheage from EBFTravail.dbo.DimIndividuCache) g on a.age3112=g.age
+              left outer join RP2012Cube.FL.Q06 i on fl.q6=i.Q6
+              left outer join RP2012Cube.BI.Q01 j on a.Q1=j.q1")
+
+RP2$CSP2<-RP2$CSP1
+RP2$CSP2Lib<-as.character(RP2$CSP1Lib)
+RP2[RP2$CSP1>6,]$CSP2<-7
+RP2[RP2$CSP1>6,]$CSP2Lib<-"Sans emploi"
+
+table(RP3$TrancheAge)
+as.numeric(RP3$TrancheAge)
+
+RP3 <- RP2 %>% 
+  group_by_(.dots=c("Comas", "Ile","TrancheAge", "CSP2Lib")) %>% 
+  summarise(StatutMarital = names(table(Q9Lib))[which.max(table(Q9Lib))],
+            StatutOccupation = names(table(StatutOccupation))[which.max(table(StatutOccupation))])
 
 
 
 write.csv2(EBF, "EBF.csv", row.names = FALSE, na = "")
 write.csv2(RP, "RP.csv", row.names = FALSE, na = "")
+write.csv2(RP3, "RP3.csv", row.names = FALSE, na = "")
