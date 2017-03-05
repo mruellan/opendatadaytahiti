@@ -33,26 +33,27 @@
     <div class="row" style="min-height: 50px " >
         <div class="col-xs-6 col-md-3 criteria-ville criteria" style="display: none">
             <object data="images/tahiti.svg" type="image/svg+xml"></object><br>
-            Si j'habite à <span data-bind="text: ville"> </span>
+            Si j'habite à <span id='headerVille'> </span>
         </div>
         <div class="col-xs-6 col-md-3 criteria-sexe criteria"  style="display: none">
             <img data-bind="attr: {src: sexeImage}"><br>
-            Que je suis <span data-bind="text: sexeAvecPreposition"> </span>
+            Que je suis <span id='headerSexe'> </span>
         </div>
         <div class="col-xs-6 col-md-3 criteria-age criteria"  style="display: none">
             <span data-bind="text: age" class="age font-bold"></span><br>
-            Que j&#39;ai <span data-bind="text: age"></span> ans
+            Que j&#39;ai <span id='headerAge'> </span> ans
         </div>
         <div class="col-xs-6 col-md-3 criteria-profession criteria"  style="display: none">
             <span data-bind="text: profession" class="profession font-bold"></span><br>
-            et que je suis <span data-bind="text: profession"> </span>
+            et que je suis <span id='headerProfession'> </span>
         </div>
     </div>
 
         <div id="step1">
             Commune : <span id='spanCommune'></span><br/>
-           <object type="image/svg+xml" id="tahitiSVG" data="images/tahiti.svg">
-           </object>  
+           <object style="max-height: 500px" type="image/svg+xml" id="tahitiSVG" data="images/tahiti.svg">
+           </object>  <br/>
+           <center><span class="font-bold" style="font-size: 45px;color: #49B698;font-weight: bolder">OU HABITERIEZ VOUS ?</span></center>
         </div>
          <div id="step2" style="display: none">
              <img id='imgHomme' src="images/Homme.png" />
@@ -67,20 +68,22 @@
           <div id="step4" style="display: none">
               CSP
                 <select id="CSP" name="CSP" class="form-control">
-                <option value="Punaauia">Ouvrier</option>
-                <option value="Faaa">Enseignant</option>
-                <option value="Papeete">Cadre</option>
-                <option value="audi">Dirigeant</option>
+                <option value="Agriculteurs exploitants">Agriculteurs exploitants</option>
+                <option value="Artisans, commerçants et chefs d'entreprise">Artisans, commerçants et chefs d'entreprise</option>
+                <option value="Cadres et professions intellectuelles supérieures">Cadres et professions intellectuelles supérieures</option>
+                <option value="Professions intermédiaires">Professions intermédiaires</option>
+                <option value="Employés">Employés</option>
+                <option value="Ouvriers">Ouvriers</option>
+                <option value="Sans emploi">Sans emploi</option>
+                <option value="Professions intermédiaires">Professions intermédiaires</option>
+                <option value="Né après le 22/08/1998">Né après le 22/08/1998</option>
+               
             </select>
              <button type="button" id='btnStep4' class="btn btn-primary">OK</button>
         </div>
   
 </div>
 
-    
-    
-        
-   
 </body>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -185,6 +188,7 @@ var villesTahiti=[
                         pathElm.addEventListener("click",function(e){
                             $("#spanCommune").text(e.currentTarget.id);
                             ville = e.currentTarget.id;
+                            $("#headerVille").text(ville);
                             goToStep2();
                         }, false);
 
@@ -210,11 +214,13 @@ var villesTahiti=[
           //STEP2
         $("#imgHomme").click(function() {
             sexe = 'homme';
+            $("#headerSexe").text('homme');
            goToStep3();
         });
 
          $("#imgFemme").click(function() {
             sexe = 'femme';
+            $("#headerSexe").text('femme');
            goToStep3();
         });
 
@@ -222,6 +228,7 @@ var villesTahiti=[
         $("#age").on("slide", function(slideEvt) {
             $("#labelAge").text('Age : ' + slideEvt.value + 'ans');
             age = slideEvt.value;
+            $("#headerAge").text(age);
         });
         $("#btnStep3").click(function() {
            goToStep4();
