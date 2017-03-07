@@ -1,3 +1,59 @@
-path{
-    pointer-events:all;
+path {
+    pointer-events: all;
+}
+
+#step0 {
+    text-align: center;
+}
+
+#step0 .title {
+    text-align: center;
+    font-size: 40px;
+    width: 70%;
+    margin: auto;
+    color: #49B698;
+}
+
+#btnStep0 {
+    background-color: #49B698;
+    width: auto;
+    font-size: 50px;
+    color: #FFFFFF;
+}
+
+#step1 {
+    text-align: center;
+}
+
+#step2 {
+    text-align: center;
+}
+
+#step3 {
+    text-align: center;
+}
+
+#ex1Slider {
+    width: 500px;
+    margin: 50px;
+}
+
+#ex1Slider .slider-handle {
+    background-image: -webkit-radial-gradient(circle, #FFFFFF 0%, #FFF 50%, #49B698 55%, #49B698 100%);
+    width: 40px;
+    height: 40px;
+    top: -8px;
+}
+
+#ex1Slider .slider.slider-horizontal .slider-track {
+    height: 15px;
+}
+
+.btn-primary {
+    background-color: #49B698;
+    border-color: #618480;
+}
+
+.btn-primary:hover {
+    background-color: #618480;
 }
