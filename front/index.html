@@ -45,12 +45,6 @@
             </div>
             que je suis <span id="headerSexe"> </span>
         </div>
-        <div class="col-xs-offset-1 col-xs-5 col-md-offset-0 col-md-2 criteria-age criteria" style="display: none">
-            <div class="illustration">
-                <span data-bind="text: age" class="age font-bold"></span><br>
-            </div>
-            et que j&#39;ai <span id="headerAge"></span> ans
-        </div>
     </div>
 
     <div id="step0" class="row">
@@ -59,13 +53,13 @@
         </div>
         <br/><br/>
         <div class="col-md-12" style="text-align: center">
-            <button class="font-bold" id="btnStep0">QUI SERIEZ VOUS ?</button>
+            <button class="btn btn-primary" id="btnStep0">QUI SERIEZ VOUS ?</button>
         </div>
     </div>
 </div>
 
 <div id="step1" style="display: none">
-    Commune : <span id="spanCommune"></span><br/>
+    <span id="spanCommune"></span><br/>
     <object style="max-height: 500px" type="image/svg+xml" id="tahitiSVG" data="images/tahiti.svg">
     </object>
     <br/>
@@ -73,36 +67,19 @@
 </div>
 
 <div id="step2" style="display: none;">
-    <span>Que je suis un/une...</span><br>
     <img id="imgHomme" src="images/Homme.png"/>
-    <img id="imgFemme" src="images/Femme.png"/>
+    <img id="imgFemme" src="images/Femme.png"/><br>
+    <span class="font-bold" style="font-size: 45px;color: #49B698;font-weight: bolder">QUEL SERAIT VOTRE SEXE ?</span>
 </div>
 
 <div id="step3" style="display: none">
-    <span id="labelAge">et que j&#39;ai : 25 ans</span><br/>
+    <span id="bigAge" class="age font-bold">25 ans</span><br>
     <input id="age" data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="99"
            data-slider-step="1" data-slider-value="25" data-slider-tooltip="hide"><br>
-    <button type="button" id="btnStep3" class="btn btn-primary">Suivant</button>
+    <span class="font-bold" style="font-size: 45px;color: #49B698;font-weight: bolder">QUEL SERAIT VOTRE AGE ?</span><br>
+    <button type="button" id="btnStep3" class="btn btn-primary">VOIR LE PROFIL ></button>
 </div>
 
-<div id="step4" style="display: none">
-    CSP
-    <select id="CSP" name="CSP" class="form-control">
-        <option value="Agriculteurs exploitants">Agriculteurs exploitants</option>
-        <option value="Artisans, commerçants et chefs d'entreprise">Artisans, commerçants et chefs d'entreprise</option>
-        <option value="Cadres et professions intellectuelles supérieures">Cadres et professions intellectuelles supérieures</option>
-        <option value="Professions intermédiaires">Professions intermédiaires</option>
-        <option value="Employés">Employés</option>
-        <option value="Ouvriers">Ouvriers</option>
-        <option value="Sans emploi">Sans emploi</option>
-        <option value="Professions intermédiaires">Professions intermédiaires</option>
-        <option value="Né après le 22/08/1998">Né après le 22/08/1998</option>
-
-    </select>
-    <button type="button" id="btnStep4" class="btn btn-primary">OK</button>
-</div>
-
-</div>
 
 </body>
 
@@ -153,11 +130,9 @@
         $(".criteria-ville").hide();
         $(".criteria-sexe").hide();
         $(".criteria-age").hide();
-        $(".criteria-profession").hide();
         $("#step1").show(400);
         $("#step2").hide();
         $("#step3").hide();
-        $("#step4").hide();
     }
 
     function goToStep2() {
@@ -165,23 +140,28 @@
         $(".criteria-ville").show();
         $(".criteria-sexe").hide();
         $(".criteria-age").hide();
-        $(".criteria-profession").hide();
         $("#step1").hide();
         $("#step2").show(400);
         $("#step3").hide();
-        $("#step4").hide();
+
+        var a = document.getElementById("littleTahitiSVG");
+        a.addEventListener("load", function () {
+            var svgDoc = a.contentDocument;
+            var pathElm = svgDoc.getElementById(ville);
+            if (pathElm) {
+                pathElm.setAttribute('fill', '#46B497');
+            }
+        }, false );
     }
 
     function goToStep3() {
         $("#step0").hide();
         $(".criteria-ville").show();
         $(".criteria-sexe").show();
-        $(".criteria-age").hide();
-        $(".criteria-profession").hide();
+        $(".criteria-age").show();
         $("#step1").hide();
         $("#step2").hide();
         $("#step3").show(400);
-        $("#step4").hide();
     }
 
     $(function () {
@@ -249,9 +229,8 @@
 
         //STEP3
         $("#age").on("slide", function (slideEvt) {
-            $("#labelAge").text("et que j'ai : " + slideEvt.value + ' ans');
             age = slideEvt.value;
-            $("#headerAge").text(age);
+            $("#bigAge").text(age + " ans");
         });
         $("#btnStep3").click(function () {
             window.location.href = "dashboard.html?ville=" + ville + "&sexe=" + sexe + "&age=" + age;

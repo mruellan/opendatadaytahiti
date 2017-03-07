@@ -33,6 +33,11 @@ path {
     text-align: center;
 }
 
+#spanCommune {
+    font-size: 48px;
+    color: #49B698;
+}
+
 #ex1Slider {
     width: 500px;
     margin: 50px;
@@ -49,11 +54,12 @@ path {
     height: 15px;
 }
 
-.btn-primary {
-    background-color: #49B698;
-    border-color: #618480;
+#bigAge {
+    font-size: 48px;
+    color: #49B698;
+    font-weight: bold;
 }
 
-.btn-primary:hover {
-    background-color: #618480;
+#btnStep3 {
+    margin: 100px 0;
 }

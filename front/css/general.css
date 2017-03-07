@@ -56,6 +56,7 @@ h2 {
     color: #49B698;
     font-weight: bold;
 }
+
 .criteria-profession .profession {
     font-size: 36px;
     color: #49B698;
@@ -63,4 +64,16 @@ h2 {
 
 .criteria-profession .illustration {
     padding-top: 10px;
+}
+
+.btn-primary {
+    background-color: #49B698;
+    border-style: none;
+    border-radius: 28px;
+    padding: 4px 30px;
+    font-size: 48px;
+}
+
+.btn-primary:hover {
+    background-color: #618480;
 }

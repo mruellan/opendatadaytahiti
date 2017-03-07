@@ -24,7 +24,7 @@ var StatModel = function (age, sexe, ville, profession) {
         //         console.log(self.StatutMarital());
         //     });
 
-        $.getJSON("http://opendataday2017.ispf.pf:3000/api/age/" + self.age() + "/ville/" + self.ville() + "/sexe/" + self.sexe() + "/profession/" + self.profession(),
+        $.getJSON("http://opendataday2017.ispf.pf/api/age/" + self.age() + "/ville/" + self.ville() + "/sexe/" + self.sexe(),
             function (data) {
                 console.log(data);
                 var item = data[0];
@@ -52,7 +52,7 @@ var StatModel = function (age, sexe, ville, profession) {
 
     this.statusMaritalImage = ko.pureComputed(function () {
         var _status = '';
-        
+
         switch (this.StatutMarital()) {
             case 'Non concerne':
                 _status = '';
