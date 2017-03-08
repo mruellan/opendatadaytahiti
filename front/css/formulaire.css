@@ -10,16 +10,11 @@ path {
     text-align: center;
     font-size: 40px;
     width: 70%;
-    margin: auto;
+    margin: 100px auto;
     color: #49B698;
+    font-weight: 200;
 }
 
-#btnStep0 {
-    background-color: #49B698;
-    width: auto;
-    font-size: 50px;
-    color: #FFFFFF;
-}
 
 #step1 {
     text-align: center;
@@ -27,6 +22,39 @@ path {
 
 #step2 {
     text-align: center;
+}
+
+#step2 .choice {
+    margin: 40px auto;
+    width: 374px;
+}
+
+#step2 .homme {
+    background-image: url(../images/Homme.png);
+    width: 167px;
+    height: 381px;
+    float: left;
+    margin-right: 40px;
+    margin-bottom: 25px;
+}
+
+#step2 .homme:hover {
+    background-image: url(../images/HommePlein.png);
+}
+
+#step2 .femme {
+    background-image: url(../images/Femme.png);
+    width: 167px;
+    height: 381px;
+    float: left;
+}
+
+#step2 .femme:hover {
+    background-image: url(../images/FemmePlein.png);
+}
+
+#step2 span {
+    margin-top: 20px;
 }
 
 #step3 {
@@ -39,7 +67,7 @@ path {
 }
 
 #ex1Slider {
-    width: 500px;
+    width: 50%;
     margin: 50px;
 }
 

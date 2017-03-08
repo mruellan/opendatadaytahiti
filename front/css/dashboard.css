@@ -1,9 +1,10 @@
 .result-box {
     color: #C63226;
-    font-size: 18px;
+    font-size: 15px;
     text-align: center;
     margin-top: 20px;
     height: 320px;
+    text-transform: uppercase;
 }
 
 .result-illustration {
@@ -16,12 +17,23 @@
 }
 
 .result-marie span {
-    font-size: 36px;
+    font-size: 53px;
     font-weight: bold;
 }
+
+.result-marie span + span {
+    font-size: 31px;
+}
+
 .result-occupation span {
-    font-size: 24px;
+    font-size: 38px;
     font-weight: bold;
+}
+
+.result-alcool, .result-tabac {
+    font-size: 14px;
+    text-align: left;
+    line-height: 15px;
 }
 
 .result-alcool .result-illustration img {
@@ -29,9 +41,15 @@
     padding-bottom: 12px;
 }
 
-.result-alcool .font-bold {
-    font-size: 30px;
+.result-alcool .font-bold, .result-tabac .font-bold {
+    font-size: 53px;
     float: left;
+    line-height: 53px;
+}
+
+.result-tabac img {
+    width: 50px;
+    margin-bottom: 10px;
 }
 
 .monnaie {
