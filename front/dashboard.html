@@ -95,22 +95,32 @@ Le budget mensuel par UC pour le tabac"/>
             <div class="result-illustration">
                 <img data-bind="attr: {src: professionImage}">
             </div>
-            J'ai de fortes chances d'être <br>
+            <p>J'ai de fortes chances d'être </p>
             <span data-bind="html: professionText" class="font-bold"></span>
         </div>
 
-        <div class="col-md-4 result-box result-alcool">
+        <div class="col-md-4 result-box result-alcool" data-bind="css: { mineur: Mineur() }">
             <div class="result-illustration" data-bind="html: biereBouteillesHtml">
             </div>
-            <div data-bind="html: depenseAlcoolEnFrancs" class="font-bold"></div>
-            Le budget mensuel par UC pour l'alcool
+            <div data-bind="css: { hidden: Mineur() }">
+                <div data-bind="html: depenseAlcoolEnFrancs" class="font-bold"></div>
+                Le budget mensuel par UC pour l'alcool
+            </div>
+            <div data-bind="css: { hidden: !Mineur() }" class="mineurWarning">
+                Tu es un peu trop jeune pour trip... non ?
+            </div>
         </div>
 
-        <div class="col-md-4 result-box result-tabac">
+        <div class="col-md-4 result-box result-tabac" data-bind="css: { mineur: Mineur() }">
             <div class="result-illustration" data-bind="html: tabacPaquetHtml">
             </div>
-            <div data-bind="html: depenseTabacEnFrancs" class="font-bold"></div>
-            Le budget mensuel par UC pour le tabac
+            <div data-bind="css: { hidden: Mineur() }">
+                <div data-bind="html: depenseTabacEnFrancs" class="font-bold"></div>
+                Le budget mensuel par UC pour le tabac
+            </div>
+            <div data-bind="css: { hidden: !Mineur() }" class="mineurWarning">
+                Le tabac créé une dépendance... <br>Ne commence pas !
+            </div>
         </div>
     </div>
 

@@ -12,17 +12,9 @@ var StatModel = function (age, sexe, ville) {
     this.Profession = ko.observable('');
     this.DepenseAlcool = ko.observable(12000);
     this.DepenseTabac = ko.observable(4000);
-    this.NumAnimal = ko.observable(3);
+    this.Mineur = ko.observable(false);
 
     self.loadJson = function () {
-
-        // $.getJSON("result.json?age=" + self.age + "&sexe=" + self.sexe + "&ville=" + self.ville + "&profession=" + self.profession,
-        //     function (data) {
-        //         self.StatutMarital(data.StatutMarital);
-        //         self.StatutMaritalFreq(data.StatutMaritalFreq);
-        //         self.StatutOccupation(data.StatutOccupation);
-        //         console.log(self.StatutMarital());
-        //     });
 
         $.getJSON("http://opendataday2017.ispf.pf/api/age/" + self.age() + "/ville/" + self.ville() + "/sexe/" + self.sexe(),
             function (data) {
@@ -34,6 +26,7 @@ var StatModel = function (age, sexe, ville) {
                 self.DepenseAlcool(item.Alcool);
                 self.DepenseTabac(item.Tabac);
                 self.Profession('intellect');
+                self.Mineur(age<18);
             });
 
     };
@@ -129,8 +122,12 @@ var StatModel = function (age, sexe, ville) {
     this.biereBouteillesHtml = ko.pureComputed(function () {
         var numBouteilles = this.DepenseAlcool() / 1000;
         var html = '';
-        for (var bouteille = 0; bouteille < numBouteilles; bouteille++) {
-            html += '<img src="images/alcool.png">';
+        if (age < 18) {
+            html += '<img src="images/beer-child.png">';
+        } else {
+            for (var bouteille = 0; bouteille < numBouteilles; bouteille++) {
+                html += '<img src="images/alcool.png">';
+            }
         }
         return html;
     }, this);
@@ -145,8 +142,12 @@ var StatModel = function (age, sexe, ville) {
     this.tabacPaquetHtml = ko.pureComputed(function () {
         var numPaquets = this.DepenseTabac() / 600;
         var html = '';
-        for (var paquet = 0; paquet < numPaquets; paquet++) {
-            html += '<img src="images/cigarettes.png">';
+        if (age < 18) {
+            html += '<img src="images/smoke-child.png">';
+        } else {
+            for (var paquet = 0; paquet < numPaquets; paquet++) {
+                html += '<img src="images/cigarettes.png">';
+            }
         }
         return html;
     }, this);

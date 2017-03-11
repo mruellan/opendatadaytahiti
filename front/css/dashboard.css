@@ -33,12 +33,24 @@
 .result-profession span {
     font-size: 38px;
     font-weight: bold;
+    line-height: 30px;
 }
 
 .result-alcool, .result-tabac {
     font-size: 14px;
     text-align: left;
     line-height: 15px;
+}
+
+.mineur {
+    text-align: center;
+}
+.mineur .result-illustration {
+    padding: 0;
+}
+
+.hidden {
+    display: none;
 }
 
 .result-alcool .result-illustration img {
@@ -53,8 +65,12 @@
 }
 
 .result-tabac img {
-    width: 50px;
+    width: 42px;
     margin-bottom: 10px;
+}
+
+.result-tabac.mineur img {
+    width: auto;
 }
 
 .monnaie {
