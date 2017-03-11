@@ -9,6 +9,20 @@
 html, body {
     font-family: 'Nunito', sans-serif;
     color: #555555;
+    position: relative;
+    padding-bottom: 18rem;
+    min-height: 100%;
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
 }
 
 h1 {
@@ -84,4 +98,48 @@ h2 {
 
 .btn-primary:hover {
     background-color: #618480;
+}
+
+.contact {
+    margin-top: 15px;
+}
+
+.btn-danger {
+    border-radius: 24px;
+    border-style: none;
+    padding: 2px 9px;
+}
+
+.footer {
+    background-color: #49B698;
+    background-image: url("../images/vaguelette.jpg");
+    background-repeat: repeat-x;
+    margin-top: 50px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    color: white;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.footer img {
+    float: left;
+    margin-right: 20px;
+}
+
+.footer .footerText {
+    float: left;
+    border-left: 4px solid white;
+}
+
+.footer .footerText .title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 3px;
+}
+
+.footer .footerText .content {
+    font-weight: lighter;
 }
