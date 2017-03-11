@@ -30,6 +30,11 @@
     font-weight: bold;
 }
 
+.result-profession span {
+    font-size: 38px;
+    font-weight: bold;
+}
+
 .result-alcool, .result-tabac {
     font-size: 14px;
     text-align: left;
