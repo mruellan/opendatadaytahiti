@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-@import url('https://fonts.googleapis.com/css?family=Oswald');
+@import url('https://fonts.googleapis.com/css?family=Nunito:200,400');
+@import url('https://fonts.googleapis.com/css?family=Oswald:400,500,700');
 
 .font-bold {
     font-family: 'Oswald', sans-serif;
@@ -9,6 +9,20 @@
 html, body {
     font-family: 'Nunito', sans-serif;
     color: #555555;
+    position: relative;
+    padding-bottom: 18rem;
+    min-height: 100%;
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
 }
 
 h1 {
@@ -17,6 +31,7 @@ h1 {
     text-align: center;
     margin: 0;
     padding: 5px;
+    font-family: 'Oswald', sans-serif;
 }
 
 h2 {
@@ -27,4 +42,104 @@ h2 {
     margin-top: 10px;
     margin-bottom: 20px;
     padding: 5px;
+}
+
+.clear {
+    clear: both;
+}
+
+.row-criteria {
+    margin: 20px 0;
+    font-size: 13px;
+}
+
+.criteria {
+    height: 100px;
+    text-align: center;
+}
+
+.criteria .illustration {
+    height: 70px;
+}
+
+.criteria-ville object {
+    width: 100px;
+}
+
+.criteria-sexe object {
+    height: 60px;
+}
+
+.criteria-age .age {
+    font-size: 48px;
+    color: #49B698;
+    font-weight: bold;
+}
+
+.criteria-profession .profession {
+    font-size: 36px;
+    color: #49B698;
+}
+
+.criteria-profession .illustration {
+    padding-top: 10px;
+}
+
+.btn-primary {
+    border-radius: 28px;
+    border-style: none;
+    padding: 4px 30px 6px;
+    background-color: #49B698;
+    width: auto;
+    font-size: 36px;
+    color: #FFFFFF;
+    font-family: 'Oswald', sans-serif;
+}
+
+.btn-primary:hover {
+    background-color: #618480;
+}
+
+.contact {
+    margin-top: 15px;
+}
+
+.btn-danger {
+    border-radius: 24px;
+    border-style: none;
+    padding: 2px 9px;
+}
+
+.footer {
+    background-color: #49B698;
+    background-image: url("../images/vaguelette.jpg");
+    background-repeat: repeat-x;
+    margin-top: 50px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    color: white;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.footer img {
+    float: left;
+    margin-right: 20px;
+}
+
+.footer .footerText {
+    float: left;
+    border-left: 4px solid white;
+}
+
+.footer .footerText .title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 3px;
+}
+
+.footer .footerText .content {
+    font-weight: lighter;
 }

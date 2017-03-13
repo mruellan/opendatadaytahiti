@@ -1,45 +1,10 @@
 .result-box {
     color: #C63226;
-    font-size: 18px;
+    font-size: 15px;
     text-align: center;
     margin-top: 20px;
     height: 320px;
-}
-
-.row-criteria {
-    margin: 20px 0;
-    font-size: 13px;
-}
-
-.criteria {
-    height: 100px;
-    text-align: center;
-}
-
-.criteria .illustration {
-    height: 70px;
-}
-
-.criteria-ville object {
-    width: 100px;
-}
-
-.criteria-sexe object {
-    height: 60px;
-}
-
-.criteria-age .age {
-    font-size: 48px;
-    color: #49B698;
-    font-weight: bold;
-}
-.criteria-profession .profession {
-    font-size: 36px;
-    color: #49B698;
-}
-
-.criteria-profession .illustration {
-    padding-top: 10px;
+    text-transform: uppercase;
 }
 
 .result-illustration {
@@ -52,12 +17,40 @@
 }
 
 .result-marie span {
-    font-size: 36px;
+    font-size: 53px;
     font-weight: bold;
 }
+
+.result-marie span + span {
+    font-size: 31px;
+}
+
 .result-occupation span {
-    font-size: 24px;
+    font-size: 38px;
     font-weight: bold;
+}
+
+.result-profession span {
+    font-size: 38px;
+    font-weight: bold;
+    line-height: 30px;
+}
+
+.result-alcool, .result-tabac {
+    font-size: 14px;
+    text-align: left;
+    line-height: 15px;
+}
+
+.mineur {
+    text-align: center;
+}
+.mineur .result-illustration {
+    padding: 0;
+}
+
+.hidden {
+    display: none;
 }
 
 .result-alcool .result-illustration img {
@@ -65,9 +58,19 @@
     padding-bottom: 12px;
 }
 
-.result-alcool .font-bold {
-    font-size: 30px;
+.result-alcool .font-bold, .result-tabac .font-bold {
+    font-size: 53px;
     float: left;
+    line-height: 53px;
+}
+
+.result-tabac img {
+    width: 42px;
+    margin-bottom: 10px;
+}
+
+.result-tabac.mineur img {
+    width: auto;
 }
 
 .monnaie {
@@ -75,4 +78,12 @@
     padding-left: 5px;
     vertical-align: top;
     margin-right: 25px;
+}
+
+#fbShareButton {
+    margin: 30px 0;
+}
+
+#retryButton {
+    margin-top: 20px;
 }

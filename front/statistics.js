@@ -1,30 +1,22 @@
-var StatModel = function (age, sexe, ville, profession) {
+var StatModel = function (age, sexe, ville) {
     var self = this;
 
     this.age = ko.observable(age);
     this.sexe = ko.observable(sexe);
     this.ville = ko.observable(ville);
-    this.profession = ko.observable(profession);
 
     this.StatutMarital = ko.observable('');
     this.StatutMaritalFreq = ko.observable(0.8);
 
     this.StatutOccupation = ko.observable('');
+    this.Profession = ko.observable('');
     this.DepenseAlcool = ko.observable(12000);
     this.DepenseTabac = ko.observable(4000);
-    this.NumAnimal = ko.observable(3);
+    this.Mineur = ko.observable(false);
 
     self.loadJson = function () {
 
-        // $.getJSON("result.json?age=" + self.age + "&sexe=" + self.sexe + "&ville=" + self.ville + "&profession=" + self.profession,
-        //     function (data) {
-        //         self.StatutMarital(data.StatutMarital);
-        //         self.StatutMaritalFreq(data.StatutMaritalFreq);
-        //         self.StatutOccupation(data.StatutOccupation);
-        //         console.log(self.StatutMarital());
-        //     });
-
-        $.getJSON("http://opendataday2017.ispf.pf:3000/api/age/" + self.age() + "/ville/" + self.ville() + "/sexe/" + self.sexe() + "/profession/" + self.profession(),
+        $.getJSON("http://opendataday2017.ispf.pf/api/age/" + self.age() + "/ville/" + self.ville() + "/sexe/" + self.sexe(),
             function (data) {
                 console.log(data);
                 var item = data[0];
@@ -33,6 +25,8 @@ var StatModel = function (age, sexe, ville, profession) {
                 self.StatutOccupation(item.StatutOccupation);
                 self.DepenseAlcool(item.Alcool);
                 self.DepenseTabac(item.Tabac);
+                self.Profession('intellect');
+                self.Mineur(age<18);
             });
 
     };
@@ -52,7 +46,7 @@ var StatModel = function (age, sexe, ville, profession) {
 
     this.statusMaritalImage = ko.pureComputed(function () {
         var _status = '';
-        
+
         switch (this.StatutMarital()) {
             case 'Non concerne':
                 _status = '';
@@ -90,6 +84,25 @@ var StatModel = function (age, sexe, ville, profession) {
         return 'images/statut-occupation-' + _status + '.png';
     }, this);
 
+    this.statutMaritalText = ko.pureComputed(function () {
+        var _status = '';
+
+        if (this.statutMarital().toLowerCase().indexOf("marie") >= 0) {
+            _status = 'marié';
+        }
+        else if (this.statutMarital().toLowerCase().indexOf("divorce") >= 0) {
+            _status = 'divorcé';
+        }
+        else if (this.statutMarital().toLowerCase().indexOf("celibataire") >= 0) {
+            _status = 'célibataire';
+        }
+        else if (this.statutMarital().toLowerCase().indexOf("veuf,veuve") >= 0) {
+            _status = 'veuf';
+        }
+
+        return _status;
+    }, this);
+
     this.statutOccupationText = ko.pureComputed(function () {
         var _status = '';
 
@@ -109,8 +122,12 @@ var StatModel = function (age, sexe, ville, profession) {
     this.biereBouteillesHtml = ko.pureComputed(function () {
         var numBouteilles = this.DepenseAlcool() / 1000;
         var html = '';
-        for (var bouteille = 0; bouteille < numBouteilles; bouteille++) {
-            html += '<img src="images/alcool.png">';
+        if (age < 18) {
+            html += '<img src="images/beer-child.png">';
+        } else {
+            for (var bouteille = 0; bouteille < numBouteilles; bouteille++) {
+                html += '<img src="images/alcool.png">';
+            }
         }
         return html;
     }, this);
@@ -125,8 +142,12 @@ var StatModel = function (age, sexe, ville, profession) {
     this.tabacPaquetHtml = ko.pureComputed(function () {
         var numPaquets = this.DepenseTabac() / 600;
         var html = '';
-        for (var paquet = 0; paquet < numPaquets; paquet++) {
-            html += '<img src="images/cigarettes.png">';
+        if (age < 18) {
+            html += '<img src="images/smoke-child.png">';
+        } else {
+            for (var paquet = 0; paquet < numPaquets; paquet++) {
+                html += '<img src="images/cigarettes.png">';
+            }
         }
         return html;
     }, this);
@@ -138,34 +159,52 @@ var StatModel = function (age, sexe, ville, profession) {
         return html;
     }, this);
 
-    this.animalImage = ko.pureComputed(function () {
-        var numAnimal = this.NumAnimal();
+    this.professionImage = ko.pureComputed(function () {
         var src = '';
-        switch (numAnimal) {
-            case 0:
-                src = 'animals-none.png';
-                break;
-            case 1:
-                src = 'animal-dog.png';
-                break;
-            case 2:
-            case 3:
-            case 4:
-                src = 'animal-cat-and-dog.png';
-                break;
+
+        if (this.Profession().toLowerCase().indexOf("commerçant") >= 0) {
+            src = 'commercant.png';
+        }
+        else if (this.Profession().toLowerCase().indexOf("agriculteur") >= 0) {
+            src = 'agriculteur.png';
+        }
+        else if (this.Profession().toLowerCase().indexOf("employé") >= 0) {
+            src = 'employe.png';
+        }
+        else if (this.Profession().toLowerCase().indexOf("intermédiaire") >= 0) {
+            src = 'intermediaire.png';
+        }
+        else if (this.Profession().toLowerCase().indexOf("ouvrier") >= 0) {
+            src = 'ouvrier.png';
+        }
+        else if (this.Profession().toLowerCase().indexOf("intellec") >= 0) {
+            src = 'profession-intellectuelle.png';
         }
         return 'images/' + src;
     }, this);
 
-    this.animalText = ko.pureComputed(function () {
-        var html = "Je n'ai certainement pas d'animal pour l'instant";
-        if (this.NumAnimal() > 0) {
-            html = "J'aime les animaux et j'ai ";
-            html += '<span class="font-bold">';
-            html += this.NumAnimal();
-            html += this.NumAnimal() > 1 ? " animaux" : " animal";
-            html += "</span>";
+    this.professionText = ko.pureComputed(function () {
+        var html = "";
+
+        if (this.Profession().toLowerCase().indexOf("commerçant") >= 0) {
+            html = 'Commerçant';
         }
+        else if (this.Profession().toLowerCase().indexOf("agriculteur") >= 0) {
+            html = 'Agriculteur';
+        }
+        else if (this.Profession().toLowerCase().indexOf("employé") >= 0) {
+            html = 'Employé';
+        }
+        else if (this.Profession().toLowerCase().indexOf("intermédiaire") >= 0) {
+            html = 'Profession intermédiaire';
+        }
+        else if (this.Profession().toLowerCase().indexOf("ouvrier") >= 0) {
+            html = 'Ouvrier';
+        }
+        else if (this.Profession().toLowerCase().indexOf("intellec") >= 0) {
+            html = 'Profession intellectuelle';
+        }
+
         return html;
     }, this);
 };
@@ -185,7 +224,7 @@ function getUrlParameter(sParam) {
     }
 };
 
-var model = new StatModel(getUrlParameter('age'), getUrlParameter('sexe'), getUrlParameter('ville'), getUrlParameter('profession'));
+var model = new StatModel(getUrlParameter('age'), getUrlParameter('sexe'), getUrlParameter('ville'));
 ko.applyBindings(model);
 model.loadJson();
 

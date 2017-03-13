@@ -1,3 +1,93 @@
-path{
-    pointer-events:all;
+path {
+    pointer-events: all;
+}
+
+#step0 {
+    text-align: center;
+}
+
+#step0 .title {
+    text-align: center;
+    font-size: 40px;
+    width: 70%;
+    margin: 100px auto;
+    color: #49B698;
+    font-weight: 200;
+}
+
+
+#step1 {
+    text-align: center;
+}
+
+#step2 {
+    text-align: center;
+}
+
+#step2 .choice {
+    margin: 40px auto;
+    width: 374px;
+}
+
+#step2 .homme {
+    background-image: url(../images/Homme.png);
+    width: 167px;
+    height: 381px;
+    float: left;
+    margin-right: 40px;
+    margin-bottom: 25px;
+}
+
+#step2 .homme:hover {
+    background-image: url(../images/HommePlein.png);
+}
+
+#step2 .femme {
+    background-image: url(../images/Femme.png);
+    width: 167px;
+    height: 381px;
+    float: left;
+}
+
+#step2 .femme:hover {
+    background-image: url(../images/FemmePlein.png);
+}
+
+#step2 span {
+    margin-top: 20px;
+}
+
+#step3 {
+    text-align: center;
+}
+
+#spanCommune {
+    font-size: 48px;
+    color: #49B698;
+}
+
+#ex1Slider {
+    width: 50%;
+    margin: 50px;
+}
+
+#ex1Slider .slider-handle {
+    background-image: -webkit-radial-gradient(circle, #FFFFFF 0%, #FFF 50%, #49B698 55%, #49B698 100%);
+    width: 40px;
+    height: 40px;
+    top: -8px;
+}
+
+#ex1Slider .slider.slider-horizontal .slider-track {
+    height: 15px;
+}
+
+#bigAge {
+    font-size: 48px;
+    color: #49B698;
+    font-weight: bold;
+}
+
+#btnStep3 {
+    margin: 100px 0;
 }
