@@ -10,9 +10,9 @@ non empty {[Measures].[Ménages],[Measures].[Individus],
                         [Measures].[Dépenses moyennes mensuelles par ménage]
                         } on 0,
                         non empty ([Géographie].[Comas].children,[Géographie].[Ile].children,
-                        [Individu].[Sexe].children, [Individu].[Tranche Age].children, [Individu].[CS8 Courte].children) on 1
+                        [Individu].[Sexe].children, [Individu].[Tranche Age].children) on 1
                         from EBF')")
-colnames(EBF)<-c("Comas","Ile", "Sexe", "TrancheAge", "CSP", "Menages", "Individus","Depenses","Ressources", "DMM")
+colnames(EBF)<-c("Comas","Ile", "Sexe", "TrancheAge", "Menages", "Individus","Depenses","Ressources", "DMM")
 
 
 
@@ -22,21 +22,20 @@ member measures.[Tabac] as ([Measures].[Dépenses moyennes mensuelles par ménage 
                       select 
                       non empty {[Measures].[alcool], [Measures].[tabac]} on 0,
                       non empty ([Géographie].[Comas].children,[Géographie].[Ile].children,
-                      [Individu].[Tranche Age].children, [Individu].[Sexe].children, 
-                      [Individu].[CS8].children) on 1
+                      [Individu].[Tranche Age].children, [Individu].[Sexe].children) on 1
                       from EBF')")
-colnames(EBFDepenses)<-c("Comas", "Ile", "TrancheAge", "Sexe", "CSP", "Alcool", "Tabac")
+colnames(EBFDepenses)<-c("Comas", "Ile", "TrancheAge", "Sexe", "Alcool", "Tabac")
 
 RP<-sqlQuery(myconn, "select * from openquery([RP2012],'select 
 non empty {[Measures].[Menages],[Measures].[Individus],[Measures].[Résidences principales],
 [Measures].[Population moyenne du ménage]
 } on 0,
 non empty ([Geographie].[Comas].children,[Geographie].[Ile].children,
-[Individus].[Sexe].children, [Individus].[Age décennal 80].children, [Individus].[CSP].[CSP1]) on 1
+[Individus].[Sexe].children, [Individus].[Age décennal 80].children) on 1
 from RP2012')")
-colnames(RP)<-c("Comas","Ile", "Sexe", "TrancheAge", "CSP", "Menages", "Individus","ResidencesPrincipales","PopMoyenneMenage")
+colnames(RP)<-c("Comas","Ile", "Sexe", "TrancheAge", "Menages", "Individus","ResidencesPrincipales","PopMoyenneMenage")
   
-RP2<-sqlQuery(myconn,"select  Comas, Ile, a.age3112 as Age, left(j.Sexe,5) as Sexe,  g.TrancheAge, CSP1, CSP1Lib, Q9Lib,
+RP2<-sqlQuery(myconn,"select  Comas, Ile, a.age3112 as Age, left(j.Sexe,5) as Sexe,  g.TrancheAge,  Q9Lib,
 isnull(Q6Lib, 'Non renseigné') as StatutOccupation
               from  RP2012Cube.dbo.BI a
               left outer join RP2012Cube.dbo.FL fl on a.idfl=fl.idfl
@@ -49,19 +48,15 @@ isnull(Q6Lib, 'Non renseigné') as StatutOccupation
               left outer join RP2012Cube.FL.Q06 i on fl.q6=i.Q6
               left outer join RP2012Cube.BI.Q01 j on a.Q1=j.q1")
 
-RP2$CSP2<-RP2$CSP1
-RP2$CSP2Lib<-as.character(RP2$CSP1Lib)
-RP2[RP2$CSP1>6,]$CSP2<-7
-RP2[RP2$CSP1>6,]$CSP2Lib<-"Sans emploi"
 
 RP3 <- RP2 %>% 
-  group_by_(.dots=c("Comas", "Ile","TrancheAge", "Sexe", "CSP2Lib")) %>% 
+  group_by_(.dots=c("Comas", "Ile","TrancheAge", "Sexe")) %>% 
   summarise(StatutMarital = names(table(Q9Lib))[which.max(table(Q9Lib))],
             n=n(), 
             StatutOccupation = names(table(StatutOccupation))[which.max(table(StatutOccupation))])%>%
   mutate(StatutMaritalFreq = n / sum(n))
 
-colnames(RP3)<-c("Comas", "Ile", "TrancheAge", "Sexe", "CSP", "StatutMarital", "Nombre", "StatutOccupation", "StatutMaritalFreq")
+colnames(RP3)<-c("Comas", "Ile", "TrancheAge", "Sexe", "StatutMarital", "Nombre", "StatutOccupation", "StatutMaritalFreq")
 
 RP3$AgeMin<-as.numeric(substr(RP3$TrancheAge,0,2))
 RP3$AgeMax<-as.numeric(substr(RP3$TrancheAge,5,7))
@@ -69,15 +64,15 @@ RP3[is.na(RP3$AgeMax),]$AgeMax <- 150
 RP3$Nombre<-NULL
 
 trim.trailing <- function (x) sub("^\\s+", "", x)
-EBFDepenses$CSP<-trim.trailing(EBFDepenses$CSP)
-EBFDepenses[EBFDepenses$CSP=="Agriculteur",]$CSP<-"Agriculteurs exploitants"
-EBFDepenses[EBFDepenses$CSP=="Artisans, commercants, patrons",]$CSP<-"Artisans, commerçants et chefs d'entreprise"
-EBFDepenses[EBFDepenses$CSP=="Cadres",]$CSP<-"Cadres et professions intellectuelles supérieures"
-EBFDepenses[EBFDepenses$CSP=="Autres inactifs",]$CSP<-"Sans emploi"
-EBFDepenses[EBFDepenses$CSP=="Retraités",]$CSP<-"Sans emploi"
+#EBFDepenses$CSP<-trim.trailing(EBFDepenses$CSP)
+#EBFDepenses[EBFDepenses$CSP=="Agriculteur",]$CSP<-"Agriculteurs exploitants"
+#EBFDepenses[EBFDepenses$CSP=="Artisans, commercants, patrons",]$CSP<-"Artisans, commerçants et chefs d'entreprise"
+#EBFDepenses[EBFDepenses$CSP=="Cadres",]$CSP<-"Cadres et professions intellectuelles supérieures"
+#EBFDepenses[EBFDepenses$CSP=="Autres inactifs",]$CSP<-"Sans emploi"
+#EBFDepenses[EBFDepenses$CSP=="Retraités",]$CSP<-"Sans emploi"
 
 
-RP4<-merge(RP3, EBFDepenses, by=c("Comas", "Ile", "TrancheAge", "Sexe", "CSP"), all.x = TRUE )
+RP4<-merge(RP3, EBFDepenses, by=c("Comas", "Ile", "TrancheAge", "Sexe"), all.x = TRUE )
 RP4<-RP4[RP4$Ile=="Tahiti",]
 RP4[is.na(RP4$Alcool),]$Alcool<-mean(RP4$Alcool, na.rm = TRUE)
 RP4[is.na(RP4$Tabac),]$Tabac<-mean(RP4$Tabac, na.rm = TRUE)
